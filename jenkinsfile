@@ -38,7 +38,7 @@ pipeline {
                     }
                     post {
                         always {
-                            junit 'jest-results/junit.xml'
+                            junit '**/jest-results/junit.xml'  // Updated to capture any path discrepancies
                         }
                     }
                 }
@@ -61,7 +61,16 @@ pipeline {
                     }
                     post {
                         always {
-                            publishHTML([allowMissing: true, alwaysLinkToLastBuild: false, keepAll: false, reportDir: 'playwright-report', reportFiles: 'index.html', reportName: 'Playwright HTML Report', reportTitles: '', useWrapperFileDirectly: true])
+                            publishHTML([
+                                allowMissing: true,
+                                alwaysLinkToLastBuild: false,
+                                keepAll: false,
+                                reportDir: 'playwright-report',
+                                reportFiles: 'index.html',
+                                reportName: 'Playwright HTML Report',
+                                reportTitles: '',
+                                useWrapperFileDirectly: true
+                            ])
                         }
                     }
                 }
@@ -83,10 +92,4 @@ pipeline {
             }
         }
     }
-    post {
-    always {
-        junit '**/jest-results/junit.xml'
-    }
-}
-
 }
